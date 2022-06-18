@@ -9,13 +9,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Getter @Setter @RequiredArgsConstructor @NoArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Document(collection = "user")
-public class User {
+@Getter @Setter @NoArgsConstructor @RequiredArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Document(collection = "category")
+public class Category {
     @Id @EqualsAndHashCode.Include private String id;
     @NonNull private String name;
-    @NonNull private String email;
-    @NonNull private String password;
 
     @DBRef(lazy = true)
     private List<Post> posts = new ArrayList<>();

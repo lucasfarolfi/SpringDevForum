@@ -1,7 +1,7 @@
 package com.lucasf.springdevforum.controllers;
 
-import com.lucasf.springdevforum.domain.Post;
-import com.lucasf.springdevforum.services.PostService;
+import com.lucasf.springdevforum.domain.User;
+import com.lucasf.springdevforum.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,20 +12,20 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/v1/posts")
-public class PostController {
+@RequestMapping(value = "/v1/users")
+public class UserController {
     @Autowired
-    private PostService postService;
+    private UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<Post>> findAll(){
-        List<Post> posts = postService.findAll();
-        return ResponseEntity.ok().body(posts);
+    public ResponseEntity<List<User>> findAll(){
+        List<User> users = userService.findAll();
+        return ResponseEntity.ok().body(users);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Post> findById(@PathVariable String id){
-        Post post = postService.findById(id);
-        return ResponseEntity.ok().body(post);
+    public ResponseEntity<User> findById(@PathVariable String id){
+        User user = userService.findById(id);
+        return ResponseEntity.ok().body(user);
     }
 }
