@@ -9,9 +9,11 @@ import javax.validation.constraints.NotNull;
 public class AuthorDto {
     @NotNull private String id;
     @NotNull private String name;
+    @NotNull private String lastname;
 
     public AuthorDto(User user){
         this.id = user.getId();
-        this.name = user.getName();
+        this.name = user.getFirstname();
+        this.lastname = user.getLastname();
     }
 }

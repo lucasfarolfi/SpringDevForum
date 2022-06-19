@@ -13,12 +13,13 @@ import java.util.List;
 @Document(collection = "user")
 public class User {
     @Id @EqualsAndHashCode.Include private String id;
-    @NonNull private String name;
+    @NonNull private String firstname;
+    @NonNull private String lastname;
     @NonNull private String email;
     @NonNull private String password;
 
-    @DBRef(lazy = true)
-    private List<Post> posts = new ArrayList<>();
+    //@DBRef(lazy = true)
+    //private List<Post> posts = new ArrayList<>();
 
     @Setter(AccessLevel.NONE)
     private Date createdAt = new Date();

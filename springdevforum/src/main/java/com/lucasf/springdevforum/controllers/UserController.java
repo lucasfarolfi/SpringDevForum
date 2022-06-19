@@ -1,8 +1,15 @@
 package com.lucasf.springdevforum.controllers;
 
+import com.lucasf.springdevforum.domain.Post;
 import com.lucasf.springdevforum.domain.User;
+import com.lucasf.springdevforum.dtos.UserDto;
+import com.lucasf.springdevforum.services.PostService;
 import com.lucasf.springdevforum.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,16 +23,28 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private PostService postService;
 
     @GetMapping
-    public ResponseEntity<List<User>> findAll(){
-        List<User> users = userService.findAll();
+    public ResponseEntity<Page<UserDto>> findAll(
+            @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
+    ){
+        Page<UserDto> users = userService.findAll(pageable);
         return ResponseEntity.ok().body(users);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<User> findById(@PathVariable String id){
-        User user = userService.findById(id);
+    public ResponseEntity<UserDto> findById(@PathVariable String id){
+        UserDto user = userService.findById(id);
         return ResponseEntity.ok().body(user);
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<Page<Post>> posts(
+            @PathVariable String id, @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
+    ){
+        Page<Post> posts = postService.findByUserId(id, pageable);
+        return ResponseEntity.ok().body(posts);
     }
 }

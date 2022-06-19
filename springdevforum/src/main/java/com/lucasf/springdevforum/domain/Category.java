@@ -15,9 +15,6 @@ public class Category {
     @Id @EqualsAndHashCode.Include private String id;
     @NonNull private String name;
 
-    @DBRef(lazy = true)
-    private List<Post> posts = new ArrayList<>();
-
     @Setter(AccessLevel.NONE)
     private Date createdAt = new Date();
     private Date updatedAt = new Date();

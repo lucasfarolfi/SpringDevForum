@@ -2,7 +2,6 @@ package com.lucasf.springdevforum.configurations.application;
 
 import com.lucasf.springdevforum.domain.*;
 import com.lucasf.springdevforum.dtos.AuthorDto;
-import com.lucasf.springdevforum.dtos.CategoryDto;
 import com.lucasf.springdevforum.repositories.CategoryRepository;
 import com.lucasf.springdevforum.repositories.PostRepository;
 import com.lucasf.springdevforum.repositories.UserRepository;
@@ -28,26 +27,27 @@ public class ApplicationConfiguration implements CommandLineRunner {
         categoryRepository.deleteAll();
 
         // Saving Users
-        User u1 = new User("Lucas", "lucas123@email.com", "12345678");
-        User u2 = new User("Joao", "joao123@email.com", "12345678");
+        User u1 = new User("Lucas", "Farolfi","lucas123@email.com", "12345678");
+        User u2 = new User("Joao", "Gabriel","joao123@email.com", "12345678");
 
         userRepository.saveAll(Arrays.asList(u1, u2));
 
         // Saving Categories
         Category csharp = new Category("C#");
         Category java = new Category("Java");
+        Category security = new Category("Security");
+        Category web = new Category("Web");
 
-        categoryRepository.saveAll(Arrays.asList(csharp, java));
+        categoryRepository.saveAll(Arrays.asList(csharp, java, security, web));
 
         // Saving Posts
         AuthorDto author1 = new AuthorDto(u1);
         AuthorDto author2 = new AuthorDto(u2);
 
-        CategoryDto catDto1 = new CategoryDto(csharp);
-        CategoryDto catDto2 = new CategoryDto(java);
-
-        Post p1 = new Post("Cors do Dotnet", "Estou com problemas para ativar o CORS.", PostStatus.SOLVED, catDto1, author1);
-        Post p2 = new Post("Dockerfile Spring", "Estou com problemas com o Dockerfile.", PostStatus.UNRESOLVED, catDto2, author2);
+        Post p1 = new Post("Cors do Dotnet", "Estou com problemas para ativar o CORS.", PostStatus.SOLVED, author1);
+        Post p2 = new Post("Dockerfile Spring", "Estou com problemas com o Dockerfile.", PostStatus.UNRESOLVED, author2);
+        p1.getCategories().addAll(Arrays.asList(csharp, security));
+        p2.getCategories().addAll(Arrays.asList(java, web));
 
         postRepository.saveAll(Arrays.asList(p1, p2));
 
@@ -63,15 +63,5 @@ public class ApplicationConfiguration implements CommandLineRunner {
         p2.getComments().addAll(Arrays.asList(c1p2, c2p2, c3p2));
 
         postRepository.saveAll(Arrays.asList(p1, p2));
-
-        // Saving User - Post list
-        u1.getPosts().add(p1);
-        u2.getPosts().add(p2);
-        userRepository.saveAll(Arrays.asList(u1, u2));
-
-        // Saving Category - Post List
-        csharp.getPosts().add(p1);
-        java.getPosts().add(p2);
-        categoryRepository.saveAll(Arrays.asList(csharp, java));
     }
 }

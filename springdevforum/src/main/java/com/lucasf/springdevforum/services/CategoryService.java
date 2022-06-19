@@ -1,8 +1,11 @@
 package com.lucasf.springdevforum.services;
 
 import com.lucasf.springdevforum.domain.Category;
+import com.lucasf.springdevforum.exceptions.ObjectNotFoundException;
 import com.lucasf.springdevforum.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,14 +16,13 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public List<Category> findAll(){
-        return categoryRepository.findAll();
+    public Page<Category> findAll(Pageable pageable){
+        return categoryRepository.findAll(pageable);
     }
 
     public Category findById(String id){
         Optional<Category> category = categoryRepository.findById(id);
-        System.out.println(category.get());
-        return category.orElseThrow(() -> new RuntimeException("Category not found."));
+        return category.orElseThrow(() -> new ObjectNotFoundException("Category not found."));
     }
 
 }

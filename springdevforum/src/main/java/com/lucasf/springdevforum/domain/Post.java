@@ -1,7 +1,6 @@
 package com.lucasf.springdevforum.domain;
 
 import com.lucasf.springdevforum.dtos.AuthorDto;
-import com.lucasf.springdevforum.dtos.CategoryDto;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -17,10 +16,9 @@ public class Post {
     @NonNull private String title;
     @NonNull private String description;
     @NonNull private PostStatus status;
-
-    @NonNull private CategoryDto category;
     @NonNull private AuthorDto author;
 
+    private List<Category> categories = new ArrayList<>();
     private List<Comment> comments = new ArrayList<>();
 
     @Setter(AccessLevel.NONE)

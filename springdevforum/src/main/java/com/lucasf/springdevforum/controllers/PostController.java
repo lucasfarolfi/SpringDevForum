@@ -3,6 +3,10 @@ package com.lucasf.springdevforum.controllers;
 import com.lucasf.springdevforum.domain.Post;
 import com.lucasf.springdevforum.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,8 +22,10 @@ public class PostController {
     private PostService postService;
 
     @GetMapping
-    public ResponseEntity<List<Post>> findAll(){
-        List<Post> posts = postService.findAll();
+    public ResponseEntity<Page<Post>> findAll(
+            @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
+    ){ // Endpoint test - /v1/posts?size=1&page=0&sort=id,desc
+        Page<Post> posts = postService.findAll(pageable);
         return ResponseEntity.ok().body(posts);
     }
 
