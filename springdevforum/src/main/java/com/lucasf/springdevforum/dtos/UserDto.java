@@ -6,7 +6,7 @@ import lombok.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@Getter @Setter @NoArgsConstructor
+@Getter @Setter @NoArgsConstructor @EqualsAndHashCode
 public class UserDto {
     @NotNull private String id;
     @NotNull private String firstname;

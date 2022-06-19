@@ -13,8 +13,12 @@ import java.util.Optional;
 
 @Service
 public class CategoryService {
-    @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    public CategoryService(CategoryRepository categoryRepository){
+        this.categoryRepository = categoryRepository;
+    }
 
     public Page<Category> findAll(Pageable pageable){
         return categoryRepository.findAll(pageable);

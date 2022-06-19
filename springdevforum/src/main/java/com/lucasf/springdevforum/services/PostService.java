@@ -13,8 +13,12 @@ import java.util.Optional;
 
 @Service
 public class PostService {
-    @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    public PostService(PostRepository postRepository){
+        this.postRepository = postRepository;
+    }
 
     public Page<Post> findAll(Pageable pageable){
         return postRepository.findAll(pageable);

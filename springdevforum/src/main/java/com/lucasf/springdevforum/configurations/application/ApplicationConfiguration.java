@@ -8,10 +8,12 @@ import com.lucasf.springdevforum.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import java.util.Arrays;
 
 @Configuration
+@Profile(value = {"prod", "dev"})
 public class ApplicationConfiguration implements CommandLineRunner {
     @Autowired
     private UserRepository userRepository;
@@ -45,8 +47,8 @@ public class ApplicationConfiguration implements CommandLineRunner {
         AuthorDto author2 = new AuthorDto(u2);
 
         Post p1 = new Post("Cors do Dotnet", "Estou com problemas para ativar o CORS.", PostStatus.SOLVED, author1);
-        Post p2 = new Post("Dockerfile Spring", "Estou com problemas com o Dockerfile.", PostStatus.UNRESOLVED, author2);
         p1.getCategories().addAll(Arrays.asList(csharp, security));
+        Post p2 = new Post("Dockerfile Spring", "Estou com problemas com o Dockerfile.", PostStatus.UNRESOLVED, author2);
         p2.getCategories().addAll(Arrays.asList(java, web));
 
         postRepository.saveAll(Arrays.asList(p1, p2));
