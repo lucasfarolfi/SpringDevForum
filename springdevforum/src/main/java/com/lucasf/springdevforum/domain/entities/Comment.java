@@ -6,7 +6,7 @@ import lombok.*;
 
 import java.util.Date;
 
-@Getter @Setter @NoArgsConstructor @RequiredArgsConstructor
+@Getter @Setter @NoArgsConstructor @RequiredArgsConstructor @ToString
 public class Comment {
     @NonNull private String text;
     @NonNull private AuthorDto author;

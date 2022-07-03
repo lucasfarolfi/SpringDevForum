@@ -1,11 +1,13 @@
 package com.lucasf.springdevforum.domain.services;
 
+import com.lucasf.springdevforum.domain.builders.UserFactory;
 import com.lucasf.springdevforum.domain.entities.Category;
 import com.lucasf.springdevforum.domain.entities.Post;
 import com.lucasf.springdevforum.domain.enums.PostStatus;
 import com.lucasf.springdevforum.domain.entities.User;
 import com.lucasf.springdevforum.application.dtos.AuthorDto;
 import com.lucasf.springdevforum.application.exceptions.ObjectNotFoundException;
+import com.lucasf.springdevforum.domain.valueObjects.Email;
 import com.lucasf.springdevforum.infraestructure.repositories.PostRepository;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -163,7 +165,8 @@ public class PostServiceUnitTest {
 
     // Test data population
     public AuthorDto createAuthorDto(String id){
-        User user = new User("User", "Test", "email@email.com", "testpassword");
+        User user = new UserFactory().createUser("User", "Test", "email@email.com",
+                "123.123.123-12", 21, "12345-1234","testpassword").get();
         user.setId(id);
         return new AuthorDto(user);
     }

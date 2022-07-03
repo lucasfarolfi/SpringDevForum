@@ -1,5 +1,6 @@
 package com.lucasf.springdevforum.domain.services;
 
+import com.lucasf.springdevforum.domain.builders.UserFactory;
 import com.lucasf.springdevforum.domain.entities.User;
 import com.lucasf.springdevforum.application.dtos.UserDto;
 import com.lucasf.springdevforum.application.exceptions.ObjectNotFoundException;
@@ -65,7 +66,8 @@ public class UserServiceUnitTest {
     public void test3(){
         // Given
         String id = "507f1f77bcf86cd799439011";
-        User user = new User("User", "Test", "email@email.com", "testpassword");
+        User user = new UserFactory().createUser("User", "Test", "email@email.com",
+                "123.123.123-12", 21, "12345-1234","testpassword").get();
         user.setId(id);
         Optional<User> optionalUser = Optional.ofNullable(user);
         Mockito.when(userRepository.findById(id)).thenReturn(optionalUser);
@@ -94,9 +96,9 @@ public class UserServiceUnitTest {
 
     // Test data
     public Page<User> createUserPage(Pageable pageable){
-        User user1 = new User("User", "Test", "email@email.com", "testpassword");
-        User user2 = new User("User", "Test", "email@email.com", "testpassword");
-        List<User> categories = new ArrayList<>(Arrays.asList(user1,user2));
+        User user = new UserFactory().createUser("User", "Test", "email@email.com",
+                "123.123.123-12", 21, "12345-1234","testpassword").get();
+        List<User> categories = new ArrayList<>(Arrays.asList(user,user));
 
         return new PageImpl<User>(categories, pageable, categories.size());
     }

@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
-@Getter @Setter @NoArgsConstructor @RequiredArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Getter @Setter @NoArgsConstructor @RequiredArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true) @ToString
 @Document(collection = "category")
 public class Category {
     @Id @EqualsAndHashCode.Include private String id;

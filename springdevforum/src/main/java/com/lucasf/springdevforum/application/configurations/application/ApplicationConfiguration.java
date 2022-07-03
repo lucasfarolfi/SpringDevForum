@@ -1,11 +1,13 @@
 package com.lucasf.springdevforum.application.configurations.application;
 
 import com.lucasf.springdevforum.application.dtos.AuthorDto;
+import com.lucasf.springdevforum.domain.builders.UserFactory;
 import com.lucasf.springdevforum.domain.entities.Category;
 import com.lucasf.springdevforum.domain.entities.Comment;
 import com.lucasf.springdevforum.domain.entities.Post;
 import com.lucasf.springdevforum.domain.entities.User;
 import com.lucasf.springdevforum.domain.enums.PostStatus;
+import com.lucasf.springdevforum.domain.valueObjects.Email;
 import com.lucasf.springdevforum.infraestructure.repositories.CategoryRepository;
 import com.lucasf.springdevforum.infraestructure.repositories.PostRepository;
 import com.lucasf.springdevforum.infraestructure.repositories.UserRepository;
@@ -33,8 +35,10 @@ public class ApplicationConfiguration implements CommandLineRunner {
         categoryRepository.deleteAll();
 
         // Saving Users
-        User u1 = new User("Lucas", "Farolfi","lucas123@email.com", "12345678");
-        User u2 = new User("Joao", "Gabriel","joao123@email.com", "12345678");
+        User u1 = new UserFactory().createUser("Lucas", "Farolfi","lucas123@email.com",
+                "123.456.789-10", 21, "12345-6789","12345678").get();
+        User u2 = new UserFactory().createUser("João", "Gabriel","joao123@email.com",
+                "123.456.789-10", 21, "12345-6789","12345678").get();
 
         userRepository.saveAll(Arrays.asList(u1, u2));
 
